@@ -6,19 +6,26 @@
     <title>Budget Buddy - Login</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .is-invalid { border: 2px solid var(--error) !important; }
+        .is-valid { border: 2px solid var(--success) !important; }
+        .error-message { color: var(--error); font-size: 0.8rem; margin-top: 5px; display: block; }
+    </style>
 </head>
 <body class="auth-page">
     <div class="auth-container">
         <h1 class="logo">Budget Buddy</h1>
         <h2>Login to Your Account</h2>
-        <form action="dashboard.html" method="GET" class="auth-form">
+        <form id="loginForm" action="dashboard.html" onsubmit="return validateLoginForm()" class="auth-form">
             <div class="form-group">
                 <label for="loginEmail">Email</label>
                 <input type="email" id="loginEmail" name="loginEmail" placeholder="you@example.com" required>
+                <span class="error-message"></span>
             </div>
             <div class="form-group">
                 <label for="loginPassword">Password</label>
                 <input type="password" id="loginPassword" name="loginPassword" placeholder="Enter your password" required>
+                <span class="error-message"></span>
                 <a href="#" class="forgot-password">Forgot Password?</a>
             </div>
             <button type="submit" class="btn btn-primary">Login</button>
@@ -29,5 +36,49 @@
         
         <p class="auth-footer">Don't have an account? <a href="register.html">Sign Up</a></p>
     </div>
+    
+    <script>
+        // Helper function to show/hide error messages and apply styles
+        function displayError(inputElement, errorMessage, isValid) {
+            const formGroup = inputElement.closest('.form-group');
+            const errorSpan = formGroup.querySelector('.error-message');
+            
+            if (isValid) {
+                inputElement.classList.remove('is-invalid');
+                inputElement.classList.add('is-valid');
+                if (errorSpan) errorSpan.textContent = '';
+            } else {
+                inputElement.classList.add('is-invalid');
+                inputElement.classList.remove('is-valid');
+                if (errorSpan) errorSpan.textContent = errorMessage;
+            }
+            return isValid;
+        }
+
+        // Validation logic for the Login Form
+        function validateLoginForm() {
+            const email = document.getElementById('loginEmail');
+            const password = document.getElementById('loginPassword');
+            
+            let isValid = true;
+            let currentValid = true;
+
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            currentValid = emailRegex.test(email.value);
+            isValid = displayError(email, 'Please enter a valid email address.', currentValid) && isValid;
+
+            // Validate Password is not empty
+            currentValid = (password.value.trim() !== '');
+            isValid = displayError(password, 'Password is required.', currentValid) && isValid;
+
+            if (isValid) {
+                alert('Login simulated. Redirecting to dashboard...');
+                return true; 
+            }
+            
+            return false;
+        }
+    </script>
 </body>
 </html>

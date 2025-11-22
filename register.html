@@ -6,31 +6,55 @@
     <title>Budget Buddy - Register</title>
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        .is-invalid { border: 2px solid var(--error) !important; }
+        .is-valid { border: 2px solid var(--success) !important; }
+        .error-message { color: var(--error); font-size: 0.8rem; margin-top: 5px; display: block; }
+    </style>
 </head>
 <body class="auth-page">
     <div class="auth-container">
         <h1 class="logo">Budget Buddy</h1>
         <h2>Create Your Account</h2>
-        <form action="dashboard.html" method="GET" class="auth-form">
-            <div class="form-group">
-                <label for="email">Email</label>
-                <input type="email" id="email" name="email" placeholder="you@example.com" required>
-            </div>
+        <form id="registrationForm" action="dashboard.html" onsubmit="return validateRegistrationForm()" class="auth-form">
+            
             <div class="form-group row">
                 <div class="form-group-half">
                     <label for="firstName">First Name</label>
                     <input type="text" id="firstName" name="firstName" placeholder="John" required>
+                    <span class="error-message"></span>
                 </div>
                 <div class="form-group-half">
                     <label for="lastName">Last Name</label>
                     <input type="text" id="lastName" name="lastName" placeholder="Doe" required>
+                    <span class="error-message"></span>
                 </div>
             </div>
+
+            <div class="form-group">
+                <label for="email">Email</label>
+                <input type="email" id="email" name="email" placeholder="you@example.com" required>
+                <span class="error-message"></span>
+            </div>
+            
+            <div class="form-group">
+                <label for="phone">Phone Number</label>
+                <input type="tel" id="phone" name="phone" placeholder="e.g., 07xx-xxx-xxx">
+            </div>
+
             <div class="form-group">
                 <label for="password">Password</label>
-                <input type="password" id="password" name="password" placeholder="Must be at least 8 characters" pattern=".{8,}" title="Password must be 8 or more characters" required>
+                <input type="password" id="password" name="password" placeholder="Must be at least 8 characters" required>
                 <small class="validation-hint">🔐 Use 8+ characters for security.</small>
+                <span class="error-message"></span>
             </div>
+            
+            <div class="form-group">
+                <label for="confirmPassword">Confirm Password</label>
+                <input type="password" id="confirmPassword" name="confirmPassword" placeholder="Re-enter password" required>
+                <span class="error-message"></span>
+            </div>
+
             <div class="form-group">
                 <label for="gender">Gender</label>
                 <select id="gender" name="gender">
@@ -41,9 +65,79 @@
                     <option value="prefer_not_say">Prefer not to say</option>
                 </select>
             </div>
+            
             <button type="submit" class="btn btn-primary">Create Account</button>
         </form>
         <p class="auth-footer">Already have an account? <a href="login.html">Login</a></p>
     </div>
+
+    <script>
+        // Helper function to show/hide error messages and apply styles
+        function displayError(inputElement, errorMessage, isValid) {
+            const formGroup = inputElement.closest('.form-group');
+            // Check if the input is within a 'form-group-half' container
+            const halfContainer = inputElement.closest('.form-group-half');
+            const container = halfContainer || formGroup;
+
+            let errorSpan = container.querySelector('.error-message');
+            
+            // If errorSpan doesn't exist, try looking in the parent form-group
+            if (!errorSpan && formGroup) {
+                errorSpan = formGroup.querySelector('.error-message');
+            }
+
+            if (isValid) {
+                inputElement.classList.remove('is-invalid');
+                inputElement.classList.add('is-valid');
+                if (errorSpan) errorSpan.textContent = '';
+            } else {
+                inputElement.classList.add('is-invalid');
+                inputElement.classList.remove('is-valid');
+                if (errorSpan) errorSpan.textContent = errorMessage;
+            }
+            return isValid;
+        }
+
+        // Validation logic for the Registration Form
+        function validateRegistrationForm() {
+            const email = document.getElementById('email');
+            const password = document.getElementById('password');
+            const confirmPassword = document.getElementById('confirmPassword');
+            const firstName = document.getElementById('firstName');
+            const lastName = document.getElementById('lastName');
+            
+            let isValid = true;
+            let currentValid = true;
+
+            // Validate First Name
+            currentValid = (firstName.value.trim() !== '');
+            isValid = displayError(firstName, 'First Name is required.', currentValid) && isValid;
+
+            // Validate Last Name
+            currentValid = (lastName.value.trim() !== '');
+            isValid = displayError(lastName, 'Last Name is required.', currentValid) && isValid;
+            
+            // Validate Email
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            currentValid = emailRegex.test(email.value);
+            isValid = displayError(email, 'Please enter a valid email address.', currentValid) && isValid;
+
+            // Validate Password length (8+ characters)
+            currentValid = (password.value.length >= 8);
+            isValid = displayError(password, 'Password must be at least 8 characters.', currentValid) && isValid;
+
+            // Validate Confirm Password match
+            currentValid = (password.value === confirmPassword.value && confirmPassword.value.length > 0);
+            isValid = displayError(confirmPassword, 'Passwords do not match.', currentValid) && isValid;
+
+            // If all checks pass, the form can submit.
+            if (isValid) {
+                alert('Registration simulated. Redirecting to dashboard...');
+                return true; 
+            }
+
+            return false;
+        }
+    </script>
 </body>
 </html>
