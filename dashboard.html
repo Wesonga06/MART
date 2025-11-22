@@ -3,161 +3,102 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Budget Buddy Dashboard</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
-    <style>
-        /* --- Color Variables for Consistency --- */
-        :root {
-            --primary-color: #1abc9c; 
-            --dark-color: #2c3e50; 
-            --secondary-dark: #34495e; 
-            --card-color: #C6DEF1; 
-            --light-bg: #f4f4f4; 
-        }
-
-        body {
-            font-family: 'Poppins', sans-serif;
-            margin: 0;
-            padding: 0;
-            background-color: var(--light-bg);
-            color: #333;
-            display: flex;
-            flex-direction: column;
-            height: 100vh;
-        }
-        header {
-            background-color: burlywood;
-            color: white;
-            padding: 20px;
-            text-align: center;
-            position: sticky;
-            top: 0;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
-            z-index: 1000;
-        }
-        .header-title {
-            font-size: 2.5rem;
-            font-weight: bold;
-            margin-bottom: 10px;
-        }
-        .navbar {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
-            gap: 15px;
-            margin-top: 15px;
-        }
-        .navbar a {
-            color: white;
-            text-decoration: none;
-            font-size: 1rem;
-            font-weight: bold;
-            padding: 8px 15px;
-            border-radius: 5px;
-            background: lightsalmon; 
-            transition: 0.3s;
-        }
-        .navbar a:hover {
-            background: var(--primary-color); 
-        }
-        .sub-header {
-            font-size: 1.2rem;
-            text-align: center;
-            margin: 20px auto;
-            color: #444;
-            max-width: 80%;
-        }
-        .card-container {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            padding: 20px;
-        }
-        .card {
-            background: var(--card-color); 
-            padding: 20px;
-            width: 260px;
-            box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2);
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.3);
-        }
-        .card img {
-            width: 80px;
-            height: 80px;
-            object-fit: cover;
-            border-radius: 10px;
-            margin-bottom: 10px;
-        }
-        .card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 10px;
-            color: #444;
-        }
-        .card p {
-            font-size: 1rem;
-            color: #555;
-            line-height: 1.5;
-        }
-        .logo {
-            width: 120px;
-            height: auto;
-            display: block;
-            margin: 15px auto;
-        }
-    </style>
+    <title>Budget Buddy - Dashboard</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 </head>
-<body>
-    <header>
-        <img src="BB..jpg" alt="Budget Buddy Logo" class="logo">
-        <div class="header-title">Budget Buddy Dashboard</div>
-        <div class="navbar">
-            <a href="dashboard.html">Dashboard</a>
-            <a href="#">Transaction</a>
-            <a href="#">Inventory</a>
-            <a href="#">Expenses</a>
-            <a href="#">Budget</a>
-            <a href="#">Reports</a>
-            <a href="#">Profile</a>
-            <a href="index.html">Logout</a> </div>
+<body class="dashboard-page">
+    <header class="header dashboard-header">
+        <div class="container">
+            <h1 class="logo">Budget Buddy</h1>
+            <nav class="main-nav">
+                <a href="#" class="active">Dashboard</a>
+                <a href="#">Transactions</a>
+                <a href="#">Goals</a>
+                <a href="#">Insights</a>
+            </nav>
+            <div class="user-info">
+                <span class="user-greeting">Welcome back, **[User's Name Placeholder]**!</span>
+                <i class="fas fa-bell"></i>
+            </div>
+        </div>
     </header>
 
-    <div class="sub-header">
-        <p>Welcome to your Budget Buddy Dashboard! Manage your finances efficiently.</p>
-        <p>Hello, **[User Name Placeholder]**. Explore tools to track your expenses, savings, and financial goals effectively.</p>
-    </div>
+    <main class="dashboard-main container">
+        
+        <section class="connected-accounts-section card">
+            <div class="card-header">
+                <h3>Connected Accounts</h3>
+                <button class="btn btn-primary btn-small"><i class="fas fa-link"></i> Add Account</button>
+            </div>
+            <div class="account-grid">
+                <div class="account-card mpesa">
+                    <i class="fas fa-mobile-alt"></i>
+                    <h4>MPESA Account</h4>
+                    <span class="status connected">Connected</span>
+                </div>
+                <div class="account-card bank">
+                    <i class="fas fa-university"></i>
+                    <h4>Bank Account</h4>
+                    <span class="status connected">Connected</span>
+                </div>
+            </div>
+            
+            <div class="financial-nudge">
+                <i class="fas fa-lightbulb"></i>
+                <div class="nudge-content">
+                    <h4>Financial Nudge</h4>
+                    <p>Your "Food & Dining" spending is 15% over budget this month. Consider cooking at home for the rest of the week!</p>
+                </div>
+            </div>
+        </section>
 
-    <div class="card-container">
-        <div class="card">
-            <img src="https://th.bing.com/th/id/OIP.Yd718ONEFY1ITLivju_9tAHaE8?rs=1&pid=ImgDetMain" alt="Expense Tracking">
-            <h3>Expense Tracking</h3>
-            <p>Monitor your daily spending and ensure financial discipline.</p>
-        </div>
-        <div class="card">
-            <img src="https://static.vecteezy.com/system/resources/previews/002/712/505/non_2x/bundle-of-saving-management-icons-and-saving-management-lettering-vector.jpg" alt="Savings Management">
-            <h3>Savings Management</h3>
-            <p>Plan your savings with detailed insights and reports.</p>
-        </div>
-        <div class="card">
-            <img src="https://cdn4.vectorstock.com/i/1000x1000/24/58/finance-and-banking-budget-planning-concept-vector-25102458.jpg" alt="Budget Planning">
-            <h3>Budget Planning</h3>
-            <p>Set budgets and stick to your financial goals.</p>
-        </div>
-        <div class="card">
-            <img src="https://th.bing.com/th/id/OIP.dRHESRQnUQuon1e5Iufs1AHaG2?rs=1&pid=ImgDetMain" alt="Secure & Private">
-            <h3>Secure & Private</h3>
-            <p>Your financial data is protected with top security standards.</p>
-        </div>
-        <div class="card">
-            <img src="https://static.vecteezy.com/system/resources/previews/026/740/313/original/financial-growth-and-enrichment-business-and-investment-value-increase-income-and-wage-growth-economic-development-economic-and-market-stability-happy-man-at-the-top-of-the-graph-with-a-coin-vector.jpg" alt="Track Progress">
-            <h3>Track Progress</h3>
-            <p>Visualize your financial journey through detailed analytics.</p>
-        </div>
-    </div>
+        <section class="spending-insights-section">
+            <div class="card-header">
+                <h3><i class="fas fa-chart-bar"></i> Spending Insights</h3>
+            </div>
+            <div class="insights-grid">
+                <div class="insight-card">
+                    <p>Spending This Month</p>
+                    <p class="insight-value">$785.00</p>
+                </div>
+                <div class="insight-card">
+                    <p>Total Saved (Goals)</p>
+                    <p class="insight-value">$1,200.00</p>
+                </div>
+                <div class="insight-card">
+                    <p>Top Category</p>
+                    <p class="insight-value">Food & Dining</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="goals-section card">
+            <div class="card-header">
+                <h3><i class="fas fa-lock"></i> Goal-Locked Savings</h3>
+            </div>
+            <div class="goal-list">
+                <div class="goal-item">
+                    <div class="goal-details">
+                        <h4>New Laptop Fund</h4>
+                        <p class="goal-progress">$500 / $1000 - 50%</p>
+                        <div class="progress-bar"><div class="progress" style="width: 50%;"></div></div>
+                        <small>Target: Dec 2025</small>
+                    </div>
+                    <span class="locked-status"><i class="fas fa-lock"></i> Locked</span>
+                </div>
+                <div class="goal-item">
+                    <div class="goal-details">
+                        <h4>Emergency Fund</h4>
+                        <p class="goal-progress">$700 / $5000 - 14%</p>
+                        <div class="progress-bar"><div class="progress" style="width: 14%;"></div></div>
+                        <small>Target: Ongoing</small>
+                    </div>
+                    <span class="locked-status"><i class="fas fa-lock"></i> Locked</span>
+                </div>
+            </div>
+            <button class="btn btn-secondary goal-button"><i class="fas fa-plus"></i> Create New Goal</button>
+        </section>
+    </main>
 </body>
 </html>
